@@ -41,13 +41,17 @@ body {
     inset: 0 0 0 0;
     transform: rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg)) translateZ(clamp(220px, 35vw, 400px));
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, filter 0.3s ease, opacity 0.3s ease;
     transform-style: preserve-3d;
 }
 
-.banner .slider .item:active {
-    transform: translate(0, 20px);
+.banner .slider .item.focus {
+    transform: translateX(-100px) translateY(20px);
 }
+
+/* .banner .slider .item:active {
+    transform: translate(0, 20px);
+} */
 
 .banner .slider .item img {
     width: 100%;
@@ -72,14 +76,21 @@ body {
 
 
 /* thẻ này để làm đúng chiều mặt sau mà không cần cũng được */
-/* .card .behind {
+.card .behind {
     position: absolute;
     width: 100%;
     height: 100%;
     object-fit: contain;
     transform: rotateY(180deg);
     backface-visibility: hidden;
-} */
+    opacity: 0.7;
+    filter: blur(1.5px);
+}
+
+.banner .slider .item.focus .card .behind {
+    opacity: 1;
+    filter: blur(0px);
+}
 
 .banner .content {
     position: absolute;
@@ -110,6 +121,15 @@ body {
     align-items: center;
 }
 
+.model-wrap {
+    position: relative;
+    width: clamp(240px, 30vw, 420px);
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .effect {
     /* background: linear-gradient(90deg,#6dd5fb, #144b83, #1f619b, #66d9f1, #d6fcfb, #6dd5fb, #d6fcfb, #6dd5fb, #d6fcfb, #66d9f1, #1f619b, #144b83, #6dd5fb); */
     /* opacity: 0.5; */
@@ -125,12 +145,12 @@ body {
     );
     filter: blur(1px);
     opacity: 0.9;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    width: clamp(10%, 15vw, 15%);
-    height: clamp(50vh, 70vh, 75vh);
     position: absolute;
-    bottom: clamp(20vh, 28vh, 32vh);
+    left: (50% - 100px);
+    bottom: 20vh;
+    width: 50%;
+    height: 100%;
+    border-radius: 20px 20px 0 0;
     animation: pulse 2.5s ease-in-out infinite;
     z-index: 1;
 }
@@ -161,7 +181,7 @@ body {
 .text {
     position: absolute;
     z-index: 2;
-    bottom: clamp(70vh, 85vh, 88vh);
+    bottom: 85vh;
     font-size: clamp(22px, 4vw, 40px);
     font-weight: 600;
     color: #0059ff;
@@ -173,13 +193,13 @@ body {
 }
 
 .model img {
-    width: 30%;
-    position: absolute;
+    width: 85%;
+    position: relative;
     z-index: 0;
-    bottom: 0;
+    top: 45vh;
 }
 
-.che {
+/* .che {
     position: absolute;
     width: 600px;
     height: 200px;
@@ -187,66 +207,62 @@ body {
     opacity: 0.4;
     top: 5%;
     left: calc(50% - 300px);
-}
+} */
 
 @media (max-width: 1024px) {
-    .banner .slider {
-        top: 8%;
+    .banner .slider .item.focus {
+        transform: translateX(-70px) translateY(20px);
     }
 
-    .effect {
-        filter: blur(1.5px);
-        opacity: 0.85;
+    .text {
+        bottom: 90vh;
     }
 }
 
 @media (max-width: 768px) {
     .banner {
-        height: 100svh;
+        height: 100vh;
     }
 
     .banner .slider {
-        top: 6%;
+        left: calc(50% - 70px);
     }
 
     .banner .slider .item {
         transform:
             rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg))
-            translateZ(180px);
+            translateZ(150px);
     }
 
     .effect {
         width: 30vw;
-        height: 60vh;
-        bottom: 25vh;
-        border-radius: 20px;
+        height: 100%;
+        bottom: 30vh;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
     }
 
     .model img {
         width: 65vw;
     }
 
-    .text {
-        bottom: 78vh;
-    }
-
-    .che {
-        width: 90vw;
-        left: 5vw;
-    }
     .slider {
         animation-duration: 28s;
     }
-
     .effect::after {
         animation-duration: 2.5s;
     }
 }
 
 @media (max-width: 480px) {
+    .banner .slider .item {
+        transform:
+            rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+            translateZ(100px);
+    }
+    
     .effect {
-        height: 55vh;
-        opacity: 0.8;
+        height: 100%;
     }
 
     .text {
